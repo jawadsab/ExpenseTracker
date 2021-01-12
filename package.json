@@ -1,0 +1,31 @@
+{
+  "name": "expensetracker",
+  "version": "1.0.0",
+  "description": "\"Expense Tracker For Personal Use\"",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawadsab/ExpenseTracker.git"
+  },
+  "author": "JawadVajeeh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jawadsab/ExpenseTracker/issues"
+  },
+  "homepage": "https://github.com/jawadsab/ExpenseTracker#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
