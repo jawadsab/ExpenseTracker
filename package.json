@@ -1,0 +1,22 @@
+{
+  "name": "expensetracker",
+  "version": "1.0.0",
+  "description": "Track Expenses With Minimal Efforts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawadsab/ExpenseTracker.git"
+  },
+  "author": "JawadVajeeh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jawadsab/ExpenseTracker/issues"
+  },
+  "homepage": "https://github.com/jawadsab/ExpenseTracker#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  }
+}
