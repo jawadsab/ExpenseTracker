@@ -1,11 +1,14 @@
-const express = require("express");
+require('dotenv').config({ path: './config/config.env' });
+const express = require('express');
 const app = express();
+const colors = require('colors');
+const morgan = require('morgan');
 
-const PORT = 5000;
-app.get("/",(req,res) => {
-    res.send("Hello World");
-})
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
-app.listen(PORT,() => {
-    console.log(`Server is running at port ${PORT}`);
-})
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Dev Server is running at port ${PORT}`.blue);
+});
