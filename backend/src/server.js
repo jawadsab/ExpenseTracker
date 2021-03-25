@@ -4,6 +4,7 @@ const app = express();
 const colors = require('colors');
 const morgan = require('morgan');
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const connectDB = async () => {
   try {
@@ -22,6 +23,11 @@ const connectDB = async () => {
   }
 }
 connectDB();
+
+const authRoutes = require("./routes/auth");
+
+app.use(bodyParser.json());
+app.use("/api/v1/user",authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World');
