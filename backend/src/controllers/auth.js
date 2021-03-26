@@ -14,6 +14,13 @@ exports.getUserById = async (req, res, next, id) => {
     return res.status(400).json({ success: false, msg: 'User not found' });
   }
 };
+exports.getUserData = async (req,res) => {
+  try {
+    res.status(200).json({sucess:true,data:req.userData});
+  } catch {
+    res.status(500).json({sucess:false,msg:"Server Error"});
+  }
+}
 
 exports.signup = async (req, res) => {
   console.log(`Signing up...`.blue.bold);

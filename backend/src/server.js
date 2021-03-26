@@ -25,9 +25,11 @@ const connectDB = async () => {
 connectDB();
 
 const authRoutes = require("./routes/auth");
+const transactionRoutes = require("./routes/transactions");
 
 app.use(bodyParser.json());
 app.use("/api/v1/user",authRoutes);
+app.use("/api/v1/transactions",transactionRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World');

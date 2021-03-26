@@ -1,0 +1,15 @@
+const express = require("express");
+const router = express.Router();
+const {addTransaction,getAllTransactions,getTransactionsByUserId} = require("../controllers/transactions");
+const {getUserById} = require("../controllers/auth");
+
+
+router.param("userId",getUserById);
+router.post("/:userId/add_transaction",addTransaction);
+router.get("/all",getAllTransactions)
+router.get("/:userId",getTransactionsByUserId);
+
+module.exports = router;
+
+
+//605bf1a4f3834a2e94ee0844
