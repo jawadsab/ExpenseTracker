@@ -28,6 +28,7 @@ const authRoutes = require("./routes/auth");
 const transactionRoutes = require("./routes/transactions");
 
 app.use(bodyParser.json());
+app.use(express.json()); //express-validation
 app.use("/api/v1/user",authRoutes);
 app.use("/api/v1/transactions",transactionRoutes);
 

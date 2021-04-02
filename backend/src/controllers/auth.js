@@ -1,10 +1,12 @@
 const User = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const {validationResult} = require("express-validator"); 
 const colors = require('colors');
 
 exports.getUserById = async (req, res, next, id) => {
   console.log(`Get user by id`.blue);
+
   try {
     let foundUser = await User.findOne({ _id: id });
     if(!foundUser) {
@@ -28,6 +30,10 @@ exports.getUserData = async (req,res) => {
 exports.signup = async (req, res) => {
   console.log(`Signing up...`.blue.bold);
   const { username, email, password } = req.body;
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).json({success:false,msg:errors.array()[0].msg})
+  }
 
   try {
     let user = await User.findOne({ email });
@@ -56,6 +62,10 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
   console.log(`Signing in...`.green.bold);
   const { email, password } = req.body;
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).json({success:false,msg:errors.array()})
+  }
   try {
     let user = await User.findOne({ email });
     if (!user) {
