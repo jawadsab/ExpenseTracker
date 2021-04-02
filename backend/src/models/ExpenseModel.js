@@ -34,6 +34,21 @@ const ExpenseSchema = new mongoose.Schema(
       trim: true,
       default: Date.now(),
     },
+    dd: {
+      type:Number,
+      trim:true,
+      required:false
+    },
+    mm: {
+      type:Number,
+      trim:true,
+      required:false
+    },
+    yy: {
+      type:Number,
+      trim:true,
+      required:false
+    }
   },
   { timestamps: true }
 );

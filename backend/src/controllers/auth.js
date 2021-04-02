@@ -7,6 +7,9 @@ exports.getUserById = async (req, res, next, id) => {
   console.log(`Get user by id`.blue);
   try {
     let foundUser = await User.findOne({ _id: id });
+    if(!foundUser) {
+      return res.status(401).json({success:false});
+    }
     req.userData = foundUser;
     next();
   } catch (error) {
