@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {addTransaction,getAllTransactions,getTransactionsByUserId,test,getUserTransactionsData} = require("../controllers/transactions");
-const {getUserById} = require("../controllers/auth");
+const {getUserById,auth} = require("../controllers/auth");
 
 
 router.param("userId",getUserById);
@@ -10,7 +10,7 @@ router.get("/all",getAllTransactions)
 // router.get("/:userId",getTransactionsByUserId);
 router.get("/:userId",test);
 
-router.get("/:userId/transaction_summary",getUserTransactionsData);
+router.get("/:userId/transaction_summary",auth,getUserTransactionsData);
 
 module.exports = router;
 
