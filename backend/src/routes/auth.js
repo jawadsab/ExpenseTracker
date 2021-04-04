@@ -34,4 +34,8 @@ router.post(
   signin
 );
 router.get('/:userId', getUserData);
+router.get("/",(req,res) => {
+  console.log("TESTETSTETS")
+  return res.status(200).json({msg:"Hello"})
+})
 module.exports = router;

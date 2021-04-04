@@ -1,0 +1,1 @@
+export {default as AuthSignup} from "./Auth/Signup";

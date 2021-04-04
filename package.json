@@ -4,7 +4,10 @@
   "description": "Track Expenses With Minimal Efforts",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"cd backend && npm start",
+    "client":"cd frontend && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

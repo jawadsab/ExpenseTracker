@@ -20,10 +20,11 @@ exports.getUserById = async (req, res, next, id) => {
   }
 };
 exports.getUserData = async (req,res) => {
+  console.log("GET USER DATA");
   try {
-    res.status(200).json({sucess:true,data:req.userData});
+    res.status(200).json({success:true,data:req.userData});
   } catch {
-    res.status(500).json({sucess:false,msg:"Server Error"});
+    res.status(500).json({success:false,msg:"Server Error"});
   }
 }
 
@@ -51,7 +52,7 @@ exports.signup = async (req, res) => {
 
     res
       .status(200)
-      .json({ sucess: true, msg: 'user sign up successful', user });
+      .json({ success: true, msg: 'user sign up successful', user });
   } catch (error) {
     console.log(`Sign in..Something went wrong `.red.bold);
     console.log(error.message);
@@ -93,7 +94,7 @@ exports.signin = async (req, res) => {
         console.log(`sign in successfull`.green.bold);
         res
           .status(200)
-          .json({ sucess: true, msg: 'user sign in successful', user, token });
+          .json({ success: true, msg: 'user sign in successful', user, token });
       }
     );
   } catch (error) {

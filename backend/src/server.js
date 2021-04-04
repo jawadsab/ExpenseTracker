@@ -5,6 +5,7 @@ const colors = require('colors');
 const morgan = require('morgan');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const connectDB = async () => {
   try {
@@ -27,6 +28,7 @@ connectDB();
 const authRoutes = require("./routes/auth");
 const transactionRoutes = require("./routes/transactions");
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json()); //express-validation
 app.use("/api/v1/user",authRoutes);
