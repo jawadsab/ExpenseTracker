@@ -65,7 +65,7 @@ exports.signin = async (req, res) => {
   const { email, password } = req.body;
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
-    return res.status(400).json({success:false,msg:errors.array()})
+    return res.status(400).json({success:false,msg:errors.array()[0].msg})
   }
   try {
     let user = await User.findOne({ email });
