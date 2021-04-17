@@ -1,13 +1,12 @@
-import React from 'react';
-import { PageWrapper } from '../../globalStyles';
-import {AuthSignin} from '../../components';
+import React from 'react'
+import {SigninComponent} from "../../components";
 
-const Signin = () => {
-  return (
-    <PageWrapper>
-      <AuthSignin />
-    </PageWrapper>
-  );
-};
+function Signin() {
+    return (
+        <>
+            <SigninComponent />
+        </>
+    )
+}
 
-export default Signin;
+export default Signin

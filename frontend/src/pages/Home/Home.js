@@ -1,16 +1,10 @@
-import React,{useState,useEffect} from 'react'
-import axios from "axios";
+import React from 'react';
+import {Navigation} from "../../components"
 
 function Home() {
-
-   
-    
-    return (
-        <div>
-            Home
-           
-        </div>
-    )
+  return (<div>
+      <Navigation />
+  </div>);
 }
 
-export default Home
+export default Home;

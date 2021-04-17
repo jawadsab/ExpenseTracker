@@ -33,6 +33,7 @@ exports.signup = async (req, res) => {
   const { username, email, password } = req.body;
   const errors = validationResult(req);
   if(!errors.isEmpty()) {
+    console.log(errors.array()[0].msg)
     return res.status(400).json({success:false,msg:errors.array()[0].msg})
   }
 
@@ -54,7 +55,7 @@ exports.signup = async (req, res) => {
       .status(200)
       .json({ success: true, msg: 'user sign up successful', user });
   } catch (error) {
-    console.log(`Sign in..Something went wrong `.red.bold);
+    console.log(`Sign up..Something went wrong `.red.bold);
     console.log(error.message);
     res.status(500).json({ success: false, msg: error.message });
   }

@@ -1,4 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import {Link} from "react-router-dom";
+
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -10,26 +12,45 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Epilogue', sans-serif;
     }
 `;
+
+export const LinkTag = styled(Link)`
+    text-decoration:none;
+    color:#fff;
+`;
+
+export const Button = styled.button`
+    border:none;
+    outline:none;
+    border-radius:10px;
+    cursor: pointer;
+`;
+
 export const PageWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #d6e5e3;
+    width:100vw;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`;
+export const ErrorMessage = styled.div`
+    width:100%;
+    padding:8px;
+    font-size:12px;
+    border:2px solid #8f2d56;
+    border-radius:10px;
+    background-color:#ffd6ff;
 `;
 
+export const SuccessMessage = styled.div`
+    width:100%;
+    padding:8px;
+    font-size:12px;
+    border:2px solid ;
+    border-radius:10px;
+    border:2px solid #1b4332;
+    background-color:#95d5b2;
+    margin-top:8px;
 
-
-export const MessageWrapper = styled.div`
-  width: 100%;
-  height: 20px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  margin-bottom:1rem;
-  border: 2px solid;
-  padding:1rem
 `;
+
 export default GlobalStyle;

@@ -111,6 +111,25 @@ exports.test = async (req, res) => {
   }
 };
 
+exports.testing = (req,res) => {
+  const {_id:userId} = req.userData;
+  const group1 = {
+    $group : {
+      _id:{transaction_cat:"$transaction_cat"},
+      amountSpent:{$sum:"$transaction_amt"},
+      transaction_cat:{$first:"$transaction_cat"},
+    }
+  }
+
+  Expense.aggregate([
+    {$match:{user:userId}},
+    {...group1}
+  ]).allowDiskUse(true).exec((error,data) => {
+    console.log("DATA ",data);
+  })
+  return res.status(200).json({msg:userId});
+}
+
 exports.getUserTransactionsData = (req, res) => {
   const { _id: userId } = req.userData;
 
@@ -165,7 +184,8 @@ exports.getUserTransactionsData = (req, res) => {
       let expenseList = {};
       let incomeList = {};
       Object.keys(data).map(key => {
-        console.log(data[key]);
+
+        console.log("KEY ",data[key]);
         if(data[key].transaction_type === 'expense') {
           expenseList = data[key];
         } else if(data[key].transaction_type === 'income') {
@@ -203,3 +223,4 @@ exports.getUserTransactionsData = (req, res) => {
 };
 
 //605bf1a4f3834a2e94ee0845
+// {"_id":{"$oid":"605ff1a0e4edad27d89580ad"},"default_currency":"Rs","transactions":[{"$oid":"605ff3cd62b97e138c61006a"},{"$oid":"605ff4f962b97e138c61006b"},{"$oid":"605ff54562b97e138c61006c"},{"$oid":"605ff57c62b97e138c61006d"},{"$oid":"605ff5cc62b97e138c61006e"},{"$oid":"605ff60162b97e138c61006f"},{"$oid":"605ff63c62b97e138c610070"},{"$oid":"605ff67f62b97e138c610071"}],"username":"john","email":"john@gmail.com","password":"$2b$10$kC2mAv81q/6YvwPg1TVoxOW/jbghuh861JG7MG3LDBKYnqtwzMjXq","createdAt":{"$date":{"$numberLong":"1616900512270"}},"updatedAt":{"$date":{"$numberLong":"1616901759586"}},"__v":{"$numberInt":"0"}}
