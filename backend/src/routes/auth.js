@@ -7,6 +7,7 @@ const {
   signin,
   auth,
   getUserData,
+  getUser
 } = require('../controllers/auth');
 
 router.param('userId', getUserById);
@@ -34,8 +35,6 @@ router.post(
   signin
 );
 router.get('/:userId', getUserData);
-router.get("/",(req,res) => {
-  console.log("TESTETSTETS")
-  return res.status(200).json({msg:"Hello"})
-})
+
+router.get("/",auth,getUser);
 module.exports = router;

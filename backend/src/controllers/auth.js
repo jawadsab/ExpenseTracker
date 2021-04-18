@@ -1,7 +1,7 @@
 const User = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const {validationResult} = require("express-validator"); 
+const { validationResult } = require('express-validator');
 const colors = require('colors');
 
 exports.getUserById = async (req, res, next, id) => {
@@ -9,8 +9,8 @@ exports.getUserById = async (req, res, next, id) => {
 
   try {
     let foundUser = await User.findOne({ _id: id });
-    if(!foundUser) {
-      return res.status(401).json({success:false});
+    if (!foundUser) {
+      return res.status(401).json({ success: false });
     }
     req.userData = foundUser;
     next();
@@ -19,22 +19,22 @@ exports.getUserById = async (req, res, next, id) => {
     return res.status(400).json({ success: false, msg: 'User not found' });
   }
 };
-exports.getUserData = async (req,res) => {
-  console.log("GET USER DATA");
+exports.getUserData = async (req, res) => {
+  console.log('GET USER DATA');
   try {
-    res.status(200).json({success:true,data:req.userData});
+    res.status(200).json({ success: true, data: req.userData });
   } catch {
-    res.status(500).json({success:false,msg:"Server Error"});
+    res.status(500).json({ success: false, msg: 'Server Error' });
   }
-}
+};
 
 exports.signup = async (req, res) => {
   console.log(`Signing up...`.blue.bold);
   const { username, email, password } = req.body;
   const errors = validationResult(req);
-  if(!errors.isEmpty()) {
-    console.log(errors.array()[0].msg)
-    return res.status(400).json({success:false,msg:errors.array()[0].msg})
+  if (!errors.isEmpty()) {
+    console.log(errors.array()[0].msg);
+    return res.status(400).json({ success: false, msg: errors.array()[0].msg });
   }
 
   try {
@@ -65,8 +65,8 @@ exports.signin = async (req, res) => {
   console.log(`Signing in...`.green.bold);
   const { email, password } = req.body;
   const errors = validationResult(req);
-  if(!errors.isEmpty()) {
-    return res.status(400).json({success:false,msg:errors.array()[0].msg})
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, msg: errors.array()[0].msg });
   }
   try {
     let user = await User.findOne({ email });
@@ -123,4 +123,18 @@ exports.auth = async (req, res, next) => {
   } catch (err) {
     return res.status(401).json({ success: false, msg: 'Auth failed' });
   }
+};
+
+exports.getUser = async (req, res) => {
+  const userId = req.userId.user.id;
+  try {
+    let foundUser = await User.findOne({ _id: userId });
+    if (!foundUser) {
+      return res.status(401).json({ success: false });
+    }
+    return res.status(200).json({success:true,user:foundUser})
+  } catch (error) {
+    return res.status(400).json({ success: false, msg: 'User not found' });
+  }
+  
 };

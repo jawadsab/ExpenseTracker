@@ -100,7 +100,7 @@ function Signup(props) {
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
-    success: true,
+    success: state.auth.success,
     error: state.auth.error,
   };
 };
