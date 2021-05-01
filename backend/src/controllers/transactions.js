@@ -13,6 +13,7 @@ exports.addTransaction = async (req, res) => {
     transaction_amt,
     transaction_cat,
     transaction_type,
+    transaction_desc,
     dd,
     mm,
     yy,
@@ -23,6 +24,7 @@ exports.addTransaction = async (req, res) => {
       transaction_amt,
       transaction_cat,
       transaction_type,
+      transaction_desc,
       dd,
       mm,
       yy,
@@ -36,7 +38,7 @@ exports.addTransaction = async (req, res) => {
     Expense.aggregate();
     res.status(201).json({ msg: 'Hello', data: transaction });
   } catch (error) {
-    console.log('ERROR', red);
+    console.log('ERROR', error);
     res.status(500).json({ success: false, msg: 'Server error' });
   }
 };
@@ -58,7 +60,10 @@ exports.getTransactionsByUserId = async (req, res) => {
   console.log('Trans by id'.green);
   const { _id: user } = req.userData;
   try {
-    const transactions = await Expense.find({ user });
+    const transactions = await Expense.find({ user }).sort({
+      createdAt: 'desc',
+    });
+
     res
       .status(200)
       .json({ success: true, count: transactions.length, data: transactions });
@@ -111,24 +116,23 @@ exports.test = async (req, res) => {
   }
 };
 
-exports.testing = (req,res) => {
-  const {_id:userId} = req.userData;
+exports.testing = (req, res) => {
+  const { _id: userId } = req.userData;
   const group1 = {
-    $group : {
-      _id:{transaction_cat:"$transaction_cat"},
-      amountSpent:{$sum:"$transaction_amt"},
-      transaction_cat:{$first:"$transaction_cat"},
-    }
-  }
+    $group: {
+      _id: { transaction_cat: '$transaction_cat' },
+      amountSpent: { $sum: '$transaction_amt' },
+      transaction_cat: { $first: '$transaction_cat' },
+    },
+  };
 
-  Expense.aggregate([
-    {$match:{user:userId}},
-    {...group1}
-  ]).allowDiskUse(true).exec((error,data) => {
-    console.log("DATA ",data);
-  })
-  return res.status(200).json({msg:userId});
-}
+  Expense.aggregate([{ $match: { user: userId } }, { ...group1 }])
+    .allowDiskUse(true)
+    .exec((error, data) => {
+      console.log('DATA ', data);
+    });
+  return res.status(200).json({ msg: userId });
+};
 
 exports.getUserTransactionsData = (req, res) => {
   const { _id: userId } = req.userData;
@@ -167,59 +171,70 @@ exports.getUserTransactionsData = (req, res) => {
       transactionArray: { $push: '$transactionArray' },
     },
   };
- 
 
   Expense.aggregate([
-    {$match:{user:userId}},
-    {...group1},
-    {...unwind},
-    {...sort},
-    {...reGroup},
-    {$project:{_id:0,totalAmount:1,transaction_type:1,transactionArray:1}}
-    
-  ]).allowDiskUse(true).exec((error,data) => {
-    if(error) {
-      res.send(500).send(error);
-    } else {
-      let expenseList = {};
-      let incomeList = {};
-      Object.keys(data).map(key => {
-
-        console.log("KEY ",data[key]);
-        if(data[key].transaction_type === 'expense') {
-          expenseList = data[key];
-        } else if(data[key].transaction_type === 'income') {
-          incomeList = data[key];
+    { $match: { user: userId } },
+    { ...group1 },
+    { ...unwind },
+    { ...sort },
+    { ...reGroup },
+    {
+      $project: {
+        _id: 0,
+        totalAmount: 1,
+        transaction_type: 1,
+        transactionArray: 1,
+      },
+    },
+  ])
+    .allowDiskUse(true)
+    .exec((error, data) => {
+      if (error) {
+        res.send(500).send(error);
+      } else {
+        let expenseList = {};
+        let incomeList = {};
+        Object.keys(data).map((key) => {
+          console.log('KEY ', data[key]);
+          if (data[key].transaction_type === 'expense') {
+            expenseList = data[key];
+          } else if (data[key].transaction_type === 'income') {
+            incomeList = data[key];
+          }
+        });
+        let spent;
+        let avlBalance;
+        if (expenseList && expenseList.transactionArray) {
+          expenseList.transactionArray.map((transaction) => {
+            let percent =
+              transaction.transaction_amt / (expenseList.totalAmount / 100);
+            transaction.percent = Math.round(percent * 100) / 100;
+            console.log(
+              `% spent on ${transaction.transaction_cat} is ${transaction.percent}`
+            );
+          });
+          spent = expenseList.totalAmount;
+        } else {
+          spent = 0;
         }
-      });
-      let spent;
-      let avlBalance;
-      if(expenseList && expenseList.transactionArray) {
-        expenseList.transactionArray.map(transaction => {
-          let percent = transaction.transaction_amt / (expenseList.totalAmount/100);
-          transaction.percent = Math.round(percent*100)/100;
-          console.log(`% spent on ${transaction.transaction_cat} is ${transaction.percent}`)
-        }) ;
-        spent = expenseList.totalAmount;
-
-      } else {
-        spent = 0;
+        if (incomeList && incomeList.transactionArray) {
+          incomeList.transactionArray.map((transaction) => {
+            let percent =
+              transaction.transaction_amt / (incomeList.totalAmount / 100);
+            transaction.percent = Math.round(percent * 100) / 100;
+            console.log(
+              `% income on ${transaction.transaction_cat} is ${transaction.percent}`
+            );
+          });
+          avlBalance = incomeList.totalAmount - spent;
+        } else {
+          avlBalance = 0 - spent;
+        }
+        res
+          .status(200)
+          .json({ success: true, expenseList, incomeList, spent, avlBalance });
       }
-      if(incomeList && incomeList.transactionArray) {
-        incomeList.transactionArray.map(transaction => {
-          let percent = transaction.transaction_amt / (incomeList.totalAmount/100);
-          transaction.percent = Math.round(percent*100)/100;
-          console.log(`% income on ${transaction.transaction_cat} is ${transaction.percent}`)
-        }) ;
-       avlBalance = incomeList.totalAmount - spent;
-
-      } else {
-        avlBalance = 0 - spent;
-      }
-      res.status(200).json({success:true,expenseList,incomeList,spent,avlBalance});
-    }
-
-  })
+    });
 };
 
 //605bf1a4f3834a2e94ee0845

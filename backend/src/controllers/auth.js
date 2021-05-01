@@ -107,6 +107,7 @@ exports.signin = async (req, res) => {
 
 exports.auth = async (req, res, next) => {
   console.log(`Authenticating...`.blue.bold);
+  console.log("AAAUUUTHHHHH ",req.headers.authorization)
   try {
     if (
       req.headers.authorization &&
