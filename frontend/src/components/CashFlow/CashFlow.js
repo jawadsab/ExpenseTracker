@@ -8,7 +8,7 @@ import {
   ContentTitle,
   Balance,
   Amount,
-  RupeeIcon,
+  RupeeIcon
 } from './CashFlow.elements';
 
 import {numberWithCommas} from "../../_helper/format";

@@ -10,29 +10,11 @@ import Cashflow from '../CashFlow/CashFlow';
 import DisplayTransaction from '../DisplayTransactions/DisplayTransaction';
 import setAuthToken from '../../_helper/setAuthToken';
 
-import { Doughnut } from 'react-chartjs-2';
 import useTransactions from '../../useTransactions';
 
 function DashboardHome(props) {
   const { user, transactions, getTransactions } = props;
-  const {
-    incomeTotal,
-    expenseTotal,
-  } = useTransactions(transactions);
-
-  const showWhenNotLoading = () => {
-    console.log(transactions);
-    return (
-      <>
-        <Cashflow
-          availableBalance={incomeTotal - expenseTotal}
-          spent={expenseTotal}
-          income={incomeTotal}
-        />
-        <DisplayTransaction />
-      </>
-    );
-  };
+  const { incomeTotal, expenseTotal } = useTransactions(transactions);
 
   useEffect(() => {
     if (user) {
@@ -44,9 +26,20 @@ function DashboardHome(props) {
   }, [user, getTransactions]);
 
   return (
-    <>
-      <Wrapper>{showWhenNotLoading()}</Wrapper>
-    </>
+    <div>
+      <Wrapper>
+        <div>
+          <Cashflow
+            availableBalance={incomeTotal - expenseTotal}
+            spent={expenseTotal}
+            income={incomeTotal}
+          />
+          <DisplayTransaction />
+        </div>
+      </Wrapper>
+     
+
+    </div>
   );
 }
 

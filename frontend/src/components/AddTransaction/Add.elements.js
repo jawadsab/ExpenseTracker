@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const FloatingButton = styled.div`
-    background-color:#5E60CE;
+    background-color:${({theme}) => theme.btnLogout};
     width:50px;
     height:50px;
     border-radius:50%;

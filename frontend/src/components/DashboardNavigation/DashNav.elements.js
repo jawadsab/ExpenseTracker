@@ -4,9 +4,11 @@ import { Button } from '../../globalStyles';
 
 export const TopDiv = styled.div`
   width: 100%;
-  height: 10vh;
+  height: 50px;
   padding: 1rem;
-  background-color: #48bfe3;
+  background: ${({ theme }) => theme.Primary};
+  background: transparent;
+  background: ${({ theme }) => theme.bgPrimary};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +24,21 @@ export const Icon = styled.i`
 
 export const HamIcon = styled(Icon).attrs((props) => ({
   className: 'fas fa-2x fa-bars',
-}))``;
+}))`
+  color: ${({ theme }) => theme.textPrimary};
+`;
+
+export const Sun = styled(Icon).attrs((props) => ({
+  className: 'fas fa-2x fa-sun',
+}))`
+  color: ${({ theme }) => theme.mode};
+`;
+
+export const Moon = styled(Icon).attrs((props) => ({
+  className: 'fas fa-2x fa-moon',
+}))`
+  color: ${({ theme }) => theme.mode};
+`;
 
 const handleNav = (active) => {
   if (active) {
@@ -37,8 +53,6 @@ export const UserDiv = styled.div``;
 export const UserGreeting = styled.p`
   font-weight: bold;
   font-size: 1.7rem;
-  color: #1a281f;
-  /* color: ${({ theme }) => theme.text}; */
   @media only screen and (max-width: 420px) {
     font-size: 1.3rem;
   }
@@ -50,10 +64,11 @@ export const ToggleNavbar = styled.nav`
   position: fixed;
   top: 0;
   bottom: 0;
-  background-color: #4ea8de;
-  border-right: 1px solid #7400b8;
+  background-color: ${({ theme }) => theme.bgSecondary};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   transition: transform 0.3s ease-in;
-  padding: 2rem;
+  padding: 1rem;
+  transform: ${({ active }) => handleNav(active)};
 
   @media only screen and (max-width: 780px) {
     width: 40vw;
@@ -91,13 +106,27 @@ export const NavItem = styled.li`
   cursor: pointer;
   display: block;
   text-decoration: none;
-  color: #fff;
+  position: relative;
+
+  color: ${({ theme }) => theme.textSecondary};
+
   font-weight: bold;
   border-radius: 5px;
-  transition: background 0.2s ease;
 
-  &:hover {
-    background: #48bfe3;
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background-color: ${({theme}) => theme.textSecondary};
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  &:hover:before {
+    left: 0;
+    right: auto;
+    width: 100%;
   }
 `;
 
@@ -130,17 +159,18 @@ export const LogoutWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 8px;
+  margin-top: 1rem;
 `;
 
 export const Logout = styled(Button)`
   border-radius: 5px;
   width: 100%;
-  padding: 8px 0px;
-  background: #7400b8;
+  padding: 12px 0px;
+  background-color: ${({ theme }) => theme.btnLogout};
   color: #fff;
 
   &:hover {
-    background: #6930c3;
+    filter: brightness(110%);
   }
 `;
 
@@ -157,7 +187,7 @@ export const CheckBoxLabel = styled.label`
   background: #bebebe;
   cursor: pointer;
   &::after {
-    content: "";
+    content: '';
     display: block;
     border-radius: 50%;
     width: 18px;
@@ -177,7 +207,7 @@ export const CheckBox = styled.input`
   &:checked + ${CheckBoxLabel} {
     background: #4fbe79;
     &::after {
-      content: "";
+      content: '';
       display: block;
       border-radius: 50%;
       width: 18px;
@@ -187,3 +217,4 @@ export const CheckBox = styled.input`
     }
   }
 `;
+

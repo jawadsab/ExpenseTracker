@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 export const CashflowWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const CashflowCard = styled.div`
   width: 70%;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 1rem;
   margin-top: 8px;
-  background-color: #6930c3;
-  color: #e9ecef;
+  background-color: ${({ theme }) => theme.bgSecondary};
+  color: ${({ theme }) => theme.onAccent};
+  box-shadow: ${({ theme }) => theme.boxShadow};
 
   @media only screen and (max-width: 720px) {
     width: 90%;
@@ -22,7 +22,8 @@ export const CashflowCard = styled.div`
 
 export const CardTitle = styled.h2`
   width: 100%;
-  border-bottom: 1px solid #dee2ff;
+  color: ${({ theme }) => theme.textSecondary};
+  /* border-bottom: 1px solid #dee2ff; */
 
   @media only screen and (max-width: 420px) {
     display: none;
@@ -30,6 +31,7 @@ export const CardTitle = styled.h2`
 `;
 export const CardBody = styled.div`
   display: flex;
+  color: ${({ theme }) => theme.textSecondary};
 `;
 
 export const Content = styled.div`
@@ -66,3 +68,9 @@ export const Icon = styled.i``;
 export const RupeeIcon = styled(Icon).attrs((props) => ({
   className: 'fas fa-rupee-sign',
 }))``;
+
+export const Wrapper = styled.div`
+  width: 80vw;
+  height: 400px;
+  background-color: pink;
+`;

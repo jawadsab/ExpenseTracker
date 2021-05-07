@@ -2,9 +2,6 @@ import React from "react";
 import {DashboardNavigation,Home,Add,Modal,Analytics} from "../../components"
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 
-const Test = () => {
-    return <h1 style={{marginLeft:"20vw",background:"red",width:"100%",height:"100vh"}}>TEST</h1>
-}
 
 const Dashboard = () => {
     return (

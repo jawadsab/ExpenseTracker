@@ -1,31 +1,48 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  padding: 1rem;
   margin-top: 1rem;
+  padding:8px;
 `;
 
 export const Title = styled.h2`
-  color: grey;
+  width:70%;
+  margin:0 auto;
+  color:${({theme}) => theme.textSecondary};
+  @media only screen and (max-width:720px) {
+    width:100%;
+  }
 `;
 
-export const Transactions = styled.div``;
+export const Transactions = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ 
+  
+`;
 
 export const Transaction = styled.div`
-  width: 100%;
-  background: #fff;
+  width: 70%;
+  background: ${({ theme }) => theme.bgSecondary};
   padding: 1rem;
-  margin-top: 8px;
+  margin-top: 1.5rem;
   border-radius: 16px;
   display: flex;
   align-items: center;
+  box-shadow: ${({theme}) => theme.boxShadow};
+
+  @media only screen and (max-width:720px) {
+    width:100%;
+  }
 `;
 
 const handleTransactiontype = (transactionType) => {
   if (transactionType === 'income') {
-    return '#679436';
+    return '#40916C';
   } else {
-    return '#a31621';
+    return '#D00000';
   }
 };
 
@@ -55,27 +72,27 @@ export const RupeeIcon = styled(Icon).attrs((props) => ({
 export const TransactionInfo = styled.div`
   display: flex;
   flex-direction: column;
-  /* background:pink; */
   margin-left: 12px;
   flex-grow: 2;
 `;
 
 export const TransactionCategory = styled.p`
-  font-weight: bold;
+  color:${({theme}) => theme.textSecondary};
   font-size: 1.3rem;
 `;
 export const TransactionDesc = styled.p`
   font-size: 0.8rem;
-  font-weight: bold;
   color: #6c757d;
   margin-top: 8px;
+  color:${({theme}) => theme.textDesc};
+
 `;
 export const TransactionDate = styled.span`
   font-size: 0.7rem;
   margin-top: 8px;
-  font-weight: bold;
-  color: #adb5bd;
   letter-spacing: 2px;
+  color:${({theme}) => theme.textSecondary};
+
 `;
 
 export const TransactionAmount = styled.p`
@@ -87,3 +104,5 @@ export const TransactionAmount = styled.p`
     font-size: 1.2rem;
   }
 `;
+
+

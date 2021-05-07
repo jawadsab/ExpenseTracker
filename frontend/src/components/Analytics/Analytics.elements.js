@@ -4,22 +4,17 @@ import {Doughnut} from "react-chartjs-2";
 
 
 export const Wrapper = styled.main`
-
-    width:80vw;
-    margin-left:20vw;
-    background:#FBFBFF;
+    background:${({theme}) => theme.bgPrimary};
     min-height:90vh;
 
 
-    @media only screen and (max-width:720px) {
-        margin-left:0;
-        width:100vw;
-    }
+   
 `;
 
 export const Title = styled.h1`
     text-align:center;
-    margin-top:1rem;
+    padding-top:1rem;
+    color:${({theme}) => theme.textSecondary}
 `;
 
 export const ChartWrapper = styled.div`

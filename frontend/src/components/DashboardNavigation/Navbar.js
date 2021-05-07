@@ -17,6 +17,8 @@ import {
   CheckBoxWrapper,
   CheckBoxLabel,
   CheckBox,
+  Sun,
+  Moon,
 } from './DashNav.elements';
 
 import { Link, NavLink } from 'react-router-dom';
@@ -26,55 +28,60 @@ import { switchTheme } from '../../redux/actions/themeAction';
 
 function Navbar(props) {
   const [navOpen, setNavOpen] = useState(false);
-  
+
+  const [active, setActive] = useState(false);
 
   const { loading, user, logout, app_theme, switchTheme } = props;
 
   const themeToggler = (e) => {
     app_theme === 'light' ? switchTheme('dark') : switchTheme('light');
   };
+
   return (
     <>
-      <TopDiv>
+     
+
+      <TopDiv active={active}>
         <HamIcon onClick={() => setNavOpen(!navOpen)} />
-        {!loading && (
-          <UserDiv>
-            <UserGreeting>{`Hello, ${
-              user.username.charAt(0).toUpperCase() + user.username.slice(1)
-            } !`}</UserGreeting>
-          </UserDiv>
-        )}
+        {
+          app_theme === "light" ? <Sun onClick={themeToggler} /> : <Moon onClick={themeToggler} />
+        }
+       
       </TopDiv>
       <ToggleNavbar onClick={() => setNavOpen(!navOpen)} active={navOpen}>
+    
         <HomeLogo to="/dashboard">Logo</HomeLogo>
         <NavMenuWrapper>
           <NavMenu>
             <NavItem
               as={NavLink}
-              activeStyle={{ background: '#48bfe3' }}
+              activeStyle={
+                app_theme === 'light'
+                  ? { background: '#FFF' }
+                  : { background: '#0466C8' }
+              }
               to="/dashboard"
             >
               <HomeIcon />
-              <NavItemText>Home</NavItemText>
+              <NavItemText>HOME</NavItemText>
             </NavItem>
             <NavItem
               as={NavLink}
-              activeStyle={{ background: '#48bfe3' }}
+              activeStyle={
+                app_theme === 'light'
+                  ? { background: '#FFF' }
+                  : { background: '#0466C8' }
+              }
               to="/stats"
             >
               <ChartIcon />
-              <NavItemText>Stats</NavItemText>
+              <NavItemText>STATS</NavItemText>
             </NavItem>
           </NavMenu>
-          <div>
-            <CheckBoxWrapper>
-              <CheckBox onClick={themeToggler} type="checkbox" id="checkbox" />
-              <CheckBoxLabel htmlFor="checkbox"></CheckBoxLabel>
-            </CheckBoxWrapper>
-            <LogoutWrapper>
-              <Logout onClick={() => logout()}>Logout</Logout>
-            </LogoutWrapper>
-          </div>
+
+          <LogoutWrapper>
+            <Logout onClick={() => logout()}>Logout</Logout>
+          </LogoutWrapper>
         </NavMenuWrapper>
       </ToggleNavbar>
     </>
