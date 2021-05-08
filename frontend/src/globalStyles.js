@@ -44,6 +44,9 @@ export const ErrorMessage = styled.div`
     border:2px solid #8f2d56;
     border-radius:10px;
     background-color:#ffd6ff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 `;
 
 export const SuccessMessage = styled.div`

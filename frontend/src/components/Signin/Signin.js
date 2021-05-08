@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SigninWave from "../../assets/signinwave.svg";
 import {
   Wrapper,
   SigninWrapper,
@@ -10,10 +11,12 @@ import {
   InputLabel,
   Input,
   SubmitButton,
+  SigninSVG,
+  CloseIcon
 } from './Signin.elements';
 
 import { connect } from 'react-redux';
-import { signinAction } from '../../redux/actions/authAction';
+import { signinAction ,clearError} from '../../redux/actions/authAction';
 import { ErrorMessage } from '../../globalStyles';
 import {withRouter,Redirect} from "react-router-dom";
 
@@ -24,7 +27,7 @@ function Signin(props) {
   });
 
   const { email, password} = values;
-  const {isAuthenticated,loading,success,errorMessage,signin} = props;
+  const {isAuthenticated,loading,success,error,signin} = props;
   const handleInputChange = (fieldName) => (event) => {
     setValues({ ...values, [fieldName]: event.target.value });
   };
@@ -36,16 +39,28 @@ function Signin(props) {
     signin(userDetails);
     setValues({ ...values, email: '', password: '' });
   };
+  const clear = () => {
+    console.log("CLICK")
+    clearError();
+  };
   return (
     <>
     {isAuthenticated && <Redirect to="/dashboard" />}
       <Wrapper>
+        <SigninSVG src={SigninWave} />
         <SigninWrapper>
           <Header>
             <HeaderText>Welcome!</HeaderText>
             <HeaderSubText>Some random text goes here</HeaderSubText>
           </Header>
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {error && (
+            <ErrorMessage>
+              {error}
+              <div onClick={clear}>
+                <CloseIcon className="fas fa-times" />
+              </div>
+            </ErrorMessage>
+          )}
           <FormWrapper onSubmit={onSubmit}>
             <FormControl>
               <InputLabel htmlFor="email">Email:</InputLabel>
@@ -80,9 +95,9 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     success: state.auth.success,
-    errorMessage: state.auth.error,
+    error: state.auth.error,
     loading:state.auth.loading
   };
 };
 
-export default connect(mapStateToProps, { signin: signinAction })(withRouter(Signin));
+export default connect(mapStateToProps, { signin: signinAction,clearError })(withRouter(Signin));

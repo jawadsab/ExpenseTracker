@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Blob1 from "../../assets/blob1.svg";
 import {
   Wrapper,
   SignupWrapper,
@@ -12,11 +13,25 @@ import {
   SubmitButton,
   Subtext,
   SigninLink,
+  CloseIcon,
+  BlobOne,
+  BlobTwo
 } from './Signup.elements';
 
 import { connect } from 'react-redux';
-import { signupAction } from '../../redux/actions/authAction';
-import { ErrorMessage, SuccessMessage } from '../../globalStyles';
+import { signupAction, clearError } from '../../redux/actions/authAction';
+import { ErrorMessage } from '../../globalStyles';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const CustomMessage = ({ closeToast }) => {
+  return (
+    <span>
+      {' '}
+      You can now signin <SigninLink to="/signin">here</SigninLink>
+    </span>
+  );
+};
 
 function Signup(props) {
   const [values, setValues] = useState({
@@ -26,12 +41,11 @@ function Signup(props) {
   });
 
   const { username, email, password } = values;
-  const { loading, success, error, signup } = props;
+  const { success, error, signup, clearError } = props;
   const handleInputChange = (fieldName) => (event) => {
     setValues({ ...values, [fieldName]: event.target.value });
   };
 
-  //   TODO: signup request
   const onSubmit = (event) => {
     event.preventDefault();
     const userDetails = { username, email, password };
@@ -39,15 +53,36 @@ function Signup(props) {
     setValues({ ...values, username: '', email: '', password: '' });
   };
 
+  const clear = () => {
+   
+    clearError();
+  };
+
+  const notify = () => {
+    toast.success(<CustomMessage />, { autoClose: false });
+    <ToastContainer />;
+  };
+
   return (
     <>
       <Wrapper>
+        <BlobOne src={Blob1} />
+        <BlobTwo src={Blob1} />
+        <ToastContainer />
+        {success && notify()}
         <SignupWrapper>
           <Header>
             <HeaderText>Create Account</HeaderText>
             <HeaderSubText>Signup now, and manage your expenses</HeaderSubText>
           </Header>
-          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {error && (
+            <ErrorMessage>
+              {error}
+              <div onClick={clear}>
+                <CloseIcon className="fas fa-times" />
+              </div>
+            </ErrorMessage>
+          )}
           <FormWrapper onSubmit={onSubmit}>
             <FormControl>
               <InputLabel htmlFor="username">Username:</InputLabel>
@@ -79,14 +114,10 @@ function Signup(props) {
               />
             </FormControl>
             <FormControl>
-              {!success && <SubmitButton type="submit">SIGN UP</SubmitButton>}
+              <SubmitButton type="submit">SIGN UP</SubmitButton>
             </FormControl>
           </FormWrapper>
-          {success && (
-            <SuccessMessage>
-              You can now signin <SigninLink to="/signin">here</SigninLink>
-            </SuccessMessage>
-          )}
+
           <Subtext>
             Already have an account?{' '}
             <SigninLink to="/signin">Sign in here</SigninLink>
@@ -105,4 +136,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { signup: signupAction })(Signup);
+export default connect(mapStateToProps, { signup: signupAction, clearError })(
+  Signup
+);

@@ -79,6 +79,12 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         user: null,
       };
+    case "CLEAR_AUTH_ERROR":
+      console.log("YYESS")
+      return {
+        ...state,
+        error:""
+      }
     default:
       return state;
   }
