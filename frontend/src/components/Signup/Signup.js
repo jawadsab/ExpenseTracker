@@ -109,6 +109,7 @@ function Signup(props) {
               <Input
                 type="password"
                 id="password"
+                placeholder="minimum 6 characters"
                 onChange={handleInputChange('password')}
                 value={password}
               />

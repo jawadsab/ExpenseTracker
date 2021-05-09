@@ -14,11 +14,9 @@ import {
   LogoutWrapper,
   Logout,
   ChartIcon,
-  CheckBoxWrapper,
-  CheckBoxLabel,
-  CheckBox,
   Sun,
   Moon,
+  Logo
 } from './DashNav.elements';
 
 import { Link, NavLink } from 'react-router-dom';
@@ -50,7 +48,9 @@ function Navbar(props) {
       </TopDiv>
       <ToggleNavbar onClick={() => setNavOpen(!navOpen)} active={navOpen}>
     
-        <HomeLogo to="/dashboard">Logo</HomeLogo>
+        <HomeLogo to="/dashboard">
+          <Logo>Expense Tracker</Logo>
+        </HomeLogo>
         <NavMenuWrapper>
           <NavMenu>
             <NavItem

@@ -79,11 +79,19 @@ export const ToggleNavbar = styled.nav`
 
 export const HomeLogo = styled(Link)`
   width: 100%;
-  background: red;
   display: block;
+  text-decoration:none;
+  color:inherit;
   @media only screen and (max-width: 780px) {
     padding: 1rem;
   }
+`;
+export const Logo = styled.p`
+  font-family: 'Knewave', cursive;
+  font-weight:bold;
+  font-style:italic;
+  text-align:center;
+  font-size:1.2rem;
 `;
 
 export const NavMenuWrapper = styled.div`

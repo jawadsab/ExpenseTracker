@@ -19,18 +19,24 @@ import { connect } from 'react-redux';
 
 
 import { numberWithCommas, formatDate } from '../../_helper/format';
+import SkeletonTransactions from '../skeleton/SkeletonTransactions';
 
 function DisplayTransaction(props) {
-  const { transactions } = props;
+  const { transactions,loading } = props;
+
+  console.log("TRA",transactions);
 
   return (
     <>
       <Wrapper>
         <Title>ALL TRANSACTIONS</Title>
         <Transactions>
+          {
+            loading && [1,2,3].map((s,n) => <SkeletonTransactions key={n} />)
+          }
       
 
-          {transactions.map((t, i) => (
+          { !loading && transactions.map((t, i) => (
             <Transaction key={t._id}>
               <TransactionType transactionType={t.transaction_type}>
                 <RupeeIcon />
@@ -48,24 +54,12 @@ function DisplayTransaction(props) {
               </TransactionAmount>
             </Transaction>
           ))}
+          {
+            !transactions.length && <h1>No Data</h1>
+          }
         </Transactions>
 
       </Wrapper>
-
-      {/* <DisplaySection>
-        <SectionTitle>All Transactions</SectionTitle>
-        <AllTransactions>
-          {
-            transactions.map((t,i) => (
-               <Transaction>
-                 <TransactionType>
-                   <RupeeIcon />
-                 </TransactionType>
-               </Transaction>
-            ))
-          }
-        </AllTransactions>
-      </DisplaySection> */}
     </>
   );
 }
@@ -73,6 +67,7 @@ function DisplayTransaction(props) {
 const mapStateToProps = (state) => {
   return {
     transactions: state.expense.transactions,
+    loading:state.expense.loading
   };
 };
 

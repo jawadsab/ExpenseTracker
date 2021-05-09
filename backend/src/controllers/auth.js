@@ -29,21 +29,18 @@ exports.getUserData = async (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-  console.log(`Signing up...`.blue.bold);
   const { username, email, password } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors.array()[0].msg);
     return res.status(400).json({ success: false, msg: errors.array()[0].msg });
   }
 
   try {
     let user = await User.findOne({ email });
     if (user) {
-      console.log(`User exists`.red.bold);
       return res
         .status(400)
-        .json({ success: false, msg: 'User already exists' });
+        .json({ success: false, msg: 'User already exists, try again with a different email' });
     }
 
     user = new User({ username, email, password });
@@ -53,16 +50,15 @@ exports.signup = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, msg: 'user sign up successful', user });
+      .json({ success: true, msg: 'Sign up successful.', user });
   } catch (error) {
-    console.log(`Sign up..Something went wrong `.red.bold);
+    console.log(`Sign up..Something went wrong.`.red.bold);
     console.log(error.message);
     res.status(500).json({ success: false, msg: error.message });
   }
 };
 
 exports.signin = async (req, res) => {
-  console.log(`Signing in...`.green.bold);
   const { email, password } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -73,13 +69,13 @@ exports.signin = async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, msg: 'This user does not exists' });
+        .json({ success: false, msg: 'This user does not exists.' });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res
         .status(400)
-        .json({ success: false, msg: 'Email or pwd is incorrect' });
+        .json({ success: false, msg: 'Your username and/or password do not match.' });
     }
     const payload = {
       user: {
@@ -92,10 +88,9 @@ exports.signin = async (req, res) => {
       { expiresIn: '7 days' },
       (err, token) => {
         if (err) throw err;
-        console.log(`sign in successfull`.green.bold);
         res
           .status(200)
-          .json({ success: true, msg: 'user sign in successful', user, token });
+          .json({ success: true, msg: 'User sign in successful', user, token });
       }
     );
   } catch (error) {
