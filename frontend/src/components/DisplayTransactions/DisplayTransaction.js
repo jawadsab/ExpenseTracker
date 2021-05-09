@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 
 import { numberWithCommas, formatDate } from '../../_helper/format';
 import SkeletonTransactions from '../skeleton/SkeletonTransactions';
+import NoData from '../NoData/NoData';
 
 function DisplayTransaction(props) {
   const { transactions,loading } = props;
@@ -55,7 +56,7 @@ function DisplayTransaction(props) {
             </Transaction>
           ))}
           {
-            !transactions.length && <h1>No Data</h1>
+            !transactions.length && <NoData />
           }
         </Transactions>
 
