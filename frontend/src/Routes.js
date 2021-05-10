@@ -12,6 +12,7 @@ import setAuthToken from './_helper/setAuthToken';
 import { loadUser } from './redux/actions/authAction';
 
 import { ThemeProvider } from 'styled-components';
+import { FourZeroFour } from './components';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -32,6 +33,7 @@ const Routes = ({ app_theme }) => {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/signin" component={Signin} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <Route component={FourZeroFour} />
         </Switch>
       </ThemeProvider>
     </Router>

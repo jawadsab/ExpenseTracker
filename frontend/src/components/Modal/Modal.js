@@ -15,6 +15,7 @@ import {
   SelectOption,
   DescInput,
   AddButton,
+  AvlBal
 } from './Modal.elements';
 
 import { connect } from 'react-redux';
@@ -23,7 +24,12 @@ import { addTransaction } from '../../redux/actions/expenseActions';
 
 import moment from 'moment';
 
-import {incomeCategories,expenseCategories} from "../../categories";
+import { incomeCategories, expenseCategories } from '../../categories';
+import useTransactions from '../../useTransactions';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { numberWithCommas } from '../../_helper/format';
 
 const initialState = {
   transaction_amt: '',
@@ -35,21 +41,41 @@ const initialState = {
 function Modal(props) {
   const [formData, setFormData] = useState(initialState);
 
-  const { modalActive, closeModal, add, user } = props;
+  const { modalActive, closeModal, add, user, transactions } = props;
+  const { incomeTotal, expenseTotal } = useTransactions(transactions);
+  const { transaction_amt,transaction_cat,transaction_type } = formData;
 
-  
-  const selectedCategories = formData.transaction_type === "income" ? incomeCategories : expenseCategories;
+  const balance = incomeTotal - expenseTotal;
+
+  const selectedCategories =
+    formData.transaction_type === 'income'
+      ? incomeCategories
+      : expenseCategories;
+
+  const notify = () =>
+    toast.warn('You do not have sufficient blanace to make this transaction!');
+    const notify1 = () =>
+    toast.error('Category cannot be left blank');
 
   const addTransaction = () => {
-    const transaction = {
-      ...formData,
-      transaction_amt: Number(formData.transaction_amt),
-      dd: moment().date(),
-      mm: moment().month(),
-      yy: moment().year(),
-    };
+    console.log({ balance, transaction_amt,transaction_cat,transaction_type });
 
-    add(user._id, transaction);
+    if (Number(transaction_amt) > balance && transaction_type === "expense") {
+      notify();
+    } else {
+      if(transaction_cat === "") {
+        notify1();
+      }
+      const transaction = {
+        ...formData,
+        transaction_amt: Number(formData.transaction_amt),
+        dd: moment().date(),
+        mm: moment().month(),
+        yy: moment().year(),
+      };
+
+      add(user._id, transaction);
+    }
 
     setFormData(initialState);
   };
@@ -61,15 +87,18 @@ function Modal(props) {
     <>
       {modalActive && (
         <Background>
+          <ToastContainer autoClose={3000} />
+          <AvlBal>Balance: {numberWithCommas(balance)}</AvlBal>
           <ModalWrapper>
             <CloseIcon onClick={close} />
             <ModalTitle>Add Amount</ModalTitle>
             <InputsWrapper>
               <InputControl>
-                <InputLabel>Amount:</InputLabel>
+                <InputLabel>Amount*:</InputLabel>
                 <InputWrapper>
                   <RupeeIcon />
                   <AmountInput
+                    min="0"
                     type="number"
                     value={formData.transaction_amt}
                     onChange={(e) =>
@@ -83,7 +112,7 @@ function Modal(props) {
                 </InputWrapper>
               </InputControl>
               <InputControl>
-                <InputLabel>Type:</InputLabel>
+                <InputLabel>Type*:</InputLabel>
                 <InputWrapper>
                   <SelectCategory
                     value={formData.transaction_type}
@@ -100,7 +129,7 @@ function Modal(props) {
                 </InputWrapper>
               </InputControl>
               <InputControl>
-                <InputLabel>Category:</InputLabel>
+                <InputLabel>Category*:</InputLabel>
                 <InputWrapper>
                   <SelectCategory
                     value={formData.transaction_cat}
@@ -114,11 +143,11 @@ function Modal(props) {
                     <SelectOption value="" disabled>
                       Category
                     </SelectOption>
-                    {selectedCategories.map((c) => <SelectOption key={c.type} value={c.type}>{c.type}</SelectOption>)}
-                    {/* <SelectOption value="food">Food</SelectOption>
-                    <SelectOption value="transport">Transport</SelectOption>
-                    <SelectOption value="travel">Travel</SelectOption>
-                    <SelectOption value="salary">Salary</SelectOption> */}
+                    {selectedCategories.map((c) => (
+                      <SelectOption key={c.type} value={c.type}>
+                        {c.type}
+                      </SelectOption>
+                    ))}
                   </SelectCategory>
                 </InputWrapper>
               </InputControl>
@@ -147,7 +176,7 @@ function Modal(props) {
 const mapStateToProps = (state) => {
   return {
     modalActive: state.modal.active,
-    transaction: state.expense.transaction,
+    transactions: state.expense.transactions,
     user: state.auth.user,
   };
 };

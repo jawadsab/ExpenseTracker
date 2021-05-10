@@ -8,6 +8,9 @@ export const lightTheme = {
   mode: '#FF9F1C',
 
   boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+
+  modalBg:"#fff",
+  modalTextColor:"##343A40"
 };
 export const darkTheme = {
   bgPrimary: '#001845',
@@ -18,5 +21,10 @@ export const darkTheme = {
   btnLogout: '#F72585',
   mode: '#F8F9FA',
 
+
+
   boxShadow: '8px 12px 24px 0px rgba(0,0,0,0.5)',
+
+  modalBg:"#2c2f33",
+  modalTextColor:"#99aab5"
 };

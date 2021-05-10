@@ -66,7 +66,7 @@ const useTransactions = (transactions) => {
     labels: filtertedIncomeCategory.map((c) => c.type),
   };
 
-  const test = 'H';
+ 
 
   return {
     filtertedExpenseCategory,

@@ -6,3 +6,4 @@ export {default as Home} from "./DashboardHome/DashboardHome";
 export {default as Add} from "./AddTransaction/Add";
 export {default as Modal} from "./Modal/Modal"
 export {default as Analytics} from "./Analytics/Analytics";
+export {default as FourZeroFour} from "./FourZeroFour/FourZeroFour";

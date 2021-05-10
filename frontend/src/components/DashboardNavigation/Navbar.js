@@ -75,7 +75,7 @@ function Navbar(props) {
               to="/stats"
             >
               <ChartIcon />
-              <NavItemText>STATS</NavItemText>
+              <NavItemText>CHARTS</NavItemText>
             </NavItem>
           </NavMenu>
 

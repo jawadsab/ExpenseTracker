@@ -3,16 +3,13 @@ import {Link} from "react-router-dom";
 
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
     * {
         padding:0;
         margin:0;
         box-sizing:border-box;
-        /* outline: 1px solid red; */
     }
     body {
         font-family: 'Epilogue', sans-serif;
-        /* color:${({theme}) => theme.textColorPrimary} */
     }
     canvas {
         width:1000px !important;

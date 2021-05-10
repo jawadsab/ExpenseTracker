@@ -92,6 +92,8 @@ export const Logo = styled.p`
   font-style:italic;
   text-align:center;
   font-size:1.2rem;
+  color:${({theme}) => theme.textSecondary};
+  letter-spacing:4px;
 `;
 
 export const NavMenuWrapper = styled.div`
