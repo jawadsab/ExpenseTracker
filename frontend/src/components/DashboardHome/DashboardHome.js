@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Wrapper } from './DashboardHome.elements';
-import { connect } from 'react-redux';
-import { getTransactions } from '../../redux/actions/expenseActions';
-
 import Cashflow from '../CashFlow/CashFlow';
 import DisplayTransaction from '../DisplayTransactions/DisplayTransaction';
-import setAuthToken from '../../_helper/setAuthToken';
 
+import { getTransactions } from '../../redux/actions/expenseActions';
+import setAuthToken from '../../_helper/setAuthToken';
 import useTransactions from '../../useTransactions';
+
+import { connect } from 'react-redux';
 
 function DashboardHome(props) {
   const { user, transactions, getTransactions } = props;

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   TopDiv,
   HamIcon,
-  UserDiv,
-  UserGreeting,
   ToggleNavbar,
   HomeLogo,
   NavMenuWrapper,
@@ -16,10 +14,10 @@ import {
   ChartIcon,
   Sun,
   Moon,
-  Logo
+  Logo,
 } from './DashNav.elements';
 
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../redux/actions/authAction';
 import { switchTheme } from '../../redux/actions/themeAction';
@@ -27,9 +25,7 @@ import { switchTheme } from '../../redux/actions/themeAction';
 function Navbar(props) {
   const [navOpen, setNavOpen] = useState(false);
 
-  const [active, setActive] = useState(false);
-
-  const { loading, user, logout, app_theme, switchTheme } = props;
+  const { logout, app_theme, switchTheme } = props;
 
   const themeToggler = (e) => {
     app_theme === 'light' ? switchTheme('dark') : switchTheme('light');
@@ -37,17 +33,15 @@ function Navbar(props) {
 
   return (
     <>
-     
-
-      <TopDiv active={active}>
+      <TopDiv>
         <HamIcon onClick={() => setNavOpen(!navOpen)} />
-        {
-          app_theme === "light" ? <Sun onClick={themeToggler} /> : <Moon onClick={themeToggler} />
-        }
-       
+        {app_theme === 'light' ? (
+          <Sun onClick={themeToggler} />
+        ) : (
+          <Moon onClick={themeToggler} />
+        )}
       </TopDiv>
       <ToggleNavbar onClick={() => setNavOpen(!navOpen)} active={navOpen}>
-    
         <HomeLogo to="/dashboard">
           <Logo>Expense Tracker</Logo>
         </HomeLogo>

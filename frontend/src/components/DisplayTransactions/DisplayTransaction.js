@@ -1,7 +1,4 @@
 import React from 'react';
-import nodatasvglight from '../../assets/no_data_light.svg';
-import nodatasvgdark from '../../assets/no_data_dark.svg';
-
 import {
   Wrapper,
   Title,
@@ -15,18 +12,18 @@ import {
   RupeeIcon,
   TransactionType,
 } from './Display.elements';
-
-import { connect } from 'react-redux';
+import nodatasvglight from '../../assets/no_data_light.svg';
+import nodatasvgdark from '../../assets/no_data_dark.svg';
 
 import { numberWithCommas, formatDate } from '../../_helper/format';
 import SkeletonTransactions from '../skeleton/SkeletonTransactions';
 import NoData from '../NoData/NoData';
 import { AddIcon, Information, SVG } from '../NoData/NoData.elements';
 
+import { connect } from 'react-redux';
+
 function DisplayTransaction(props) {
   const { transactions, loading, app_theme } = props;
-
-  console.log('TRA', transactions);
 
   return (
     <>

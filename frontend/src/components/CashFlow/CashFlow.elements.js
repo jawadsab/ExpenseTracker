@@ -23,7 +23,6 @@ export const CashflowCard = styled.div`
 export const CardTitle = styled.h2`
   width: 100%;
   color: ${({ theme }) => theme.textSecondary};
-  /* border-bottom: 1px solid #dee2ff; */
 
   @media only screen and (max-width: 420px) {
     display: none;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Button} from "../../globalStyles";
+import { Button } from '../../globalStyles';
 
 export const Background = styled.div`
   position: fixed;
@@ -16,11 +16,10 @@ export const Background = styled.div`
 export const ModalWrapper = styled.div`
   width: 550px;
   min-height: 350px;
-  background-color: ${({theme}) => theme.modalBg};
+  background-color: ${({ theme }) => theme.modalBg};
   border-radius: 1rem;
   position: relative;
   padding: 1rem;
-  
 
   @media only screen and (max-width: 720px) {
     width: 300px;
@@ -38,16 +37,15 @@ export const Icon = styled.i`
 export const CloseIcon = styled(Icon).attrs((props) => ({
   className: 'fas fa-2x fa-times',
 }))`
-  color:${({theme}) => theme.modalTextColor};
+  color: ${({ theme }) => theme.modalTextColor};
 `;
 
 export const ModalTitle = styled.h3`
-  color:${({theme}) => theme.modalTextColor};
+  color: ${({ theme }) => theme.modalTextColor};
 `;
 
 export const InputsWrapper = styled.div`
   padding: 1rem;
-  
 `;
 
 export const InputControl = styled.div`
@@ -56,7 +54,7 @@ export const InputControl = styled.div`
 
 export const InputLabel = styled.label`
   font-weight: bold;
-  color:${({theme}) => theme.modalTextColor};
+  color: ${({ theme }) => theme.modalTextColor};
 `;
 export const InputWrapper = styled.div`
   display: flex;
@@ -68,7 +66,7 @@ export const RupeeIcon = styled(RIcon).attrs((props) => ({
   className: 'fas fa-rupee-sign',
 }))`
   margin-right: 4px;
-  color:${({theme}) => theme.modalTextColor};
+  color: ${({ theme }) => theme.modalTextColor};
 `;
 
 export const AmountInput = styled.input`
@@ -78,26 +76,24 @@ export const AmountInput = styled.input`
   border-bottom: 2px solid black;
   outline: none;
   margin-top: 8px;
-  background-color:#e9ecef;
+  background-color: #e9ecef;
 `;
 
 export const AmountSpan = styled.span`
   color: #dad4ef;
   font-weight: bold;
   margin-left: 4px;
-  color:${({theme}) => theme.modalTextColor};
+  color: ${({ theme }) => theme.modalTextColor};
 `;
-
 
 export const SelectCategory = styled.select`
   width: 100%;
   margin-top: 8px;
   padding: 4px;
-  background-color:#e9ecef;
-  
+  background-color: #e9ecef;
 `;
 export const SelectOption = styled.option`
-   background-color:#e9ecef;
+  background-color: #e9ecef;
 `;
 
 export const DescInput = styled.input`
@@ -108,27 +104,25 @@ export const DescInput = styled.input`
   border-bottom: 2px solid black;
   outline: none;
   margin-top: 8px;
-  background-color:#e9ecef;
+  background-color: #e9ecef;
 `;
 
-
 export const AddButton = styled(Button)`
-
-    width:100%;
-    margin-top:1rem;
-    padding:8px;
-    color:#fff;
-    background:${({theme}) => theme.btnLogout};
+  width: 100%;
+  margin-top: 1rem;
+  padding: 8px;
+  color: #fff;
+  background: ${({ theme }) => theme.btnLogout};
 `;
 
 export const AvlBal = styled.div`
-  color:#fff;
-  position:fixed;
-  bottom:10px;
-  left:10px;
-  font-size:2rem;
+  color: #fff;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 2rem;
 
-  @media only screen and (max-width:420px) {
-    font-size:1.5rem;
+  @media only screen and (max-width: 420px) {
+    font-size: 1.5rem;
   }
 `;

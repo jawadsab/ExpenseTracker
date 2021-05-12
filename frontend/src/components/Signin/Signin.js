@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SigninWave from "../../assets/signinwave.svg";
+import SigninWave from '../../assets/signinwave.svg';
 import {
   Wrapper,
   SigninWrapper,
@@ -12,13 +12,13 @@ import {
   Input,
   SubmitButton,
   SigninSVG,
-  CloseIcon
+  CloseIcon,
 } from './Signin.elements';
 
 import { connect } from 'react-redux';
-import { signinAction ,clearError} from '../../redux/actions/authAction';
+import { signinAction, clearError } from '../../redux/actions/authAction';
 import { ErrorMessage } from '../../globalStyles';
-import {withRouter,Redirect} from "react-router-dom";
+import { withRouter, Redirect } from 'react-router-dom';
 
 function Signin(props) {
   const [values, setValues] = useState({
@@ -26,26 +26,24 @@ function Signin(props) {
     password: '',
   });
 
-  const { email, password} = values;
-  const {isAuthenticated,loading,success,error,signin} = props;
+  const { email, password } = values;
+  const { isAuthenticated, error, signin } = props;
   const handleInputChange = (fieldName) => (event) => {
     setValues({ ...values, [fieldName]: event.target.value });
   };
 
-  //   TODO: signin request
   const onSubmit = (event) => {
     event.preventDefault();
-    const userDetails = {email,password};
+    const userDetails = { email, password };
     signin(userDetails);
     setValues({ ...values, email: '', password: '' });
   };
   const clear = () => {
-    console.log("CLICK")
     clearError();
   };
   return (
     <>
-    {isAuthenticated && <Redirect to="/dashboard" />}
+      {isAuthenticated && <Redirect to="/dashboard" />}
       <Wrapper>
         <SigninSVG src={SigninWave} />
         <SigninWrapper>
@@ -96,8 +94,10 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     success: state.auth.success,
     error: state.auth.error,
-    loading:state.auth.loading
+    loading: state.auth.loading,
   };
 };
 
-export default connect(mapStateToProps, { signin: signinAction,clearError })(withRouter(Signin));
+export default connect(mapStateToProps, { signin: signinAction, clearError })(
+  withRouter(Signin)
+);

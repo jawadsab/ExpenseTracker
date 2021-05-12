@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Blob1 from "../../assets/blob1.svg";
+import Blob1 from '../../assets/blob1.svg';
 import {
   Wrapper,
   SignupWrapper,
@@ -15,7 +15,7 @@ import {
   SigninLink,
   CloseIcon,
   BlobOne,
-  BlobTwo
+  BlobTwo,
 } from './Signup.elements';
 
 import { connect } from 'react-redux';
@@ -54,7 +54,6 @@ function Signup(props) {
   };
 
   const clear = () => {
-   
     clearError();
   };
 

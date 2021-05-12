@@ -11,10 +11,10 @@ import {
   RupeeIcon,
 } from './CashFlow.elements';
 
-import { connect } from 'react-redux';
-
 import { numberWithCommas } from '../../_helper/format';
 import SkeletonCashFlow from '../skeleton/SkeletonCashFlow';
+
+import { connect } from 'react-redux';
 
 function CashFlow(props) {
   const { loading } = props;

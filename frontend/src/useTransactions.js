@@ -5,15 +5,13 @@ import {
 } from './categories';
 
 const useTransactions = (transactions) => {
-    resetCategories();
+  resetCategories();
   const selectedIncomeCategories = transactions.filter(
     (t) => t.transaction_type === 'income'
   );
   const selectedExpenseCategories = transactions.filter(
     (t) => t.transaction_type === 'expense'
   );
-
-  console.log({ incomeCategories, expenseCategories });
 
   const incomeTotal = selectedIncomeCategories.reduce(
     (acc, currVal) => (acc += currVal.transaction_amt),
@@ -65,8 +63,6 @@ const useTransactions = (transactions) => {
     ],
     labels: filtertedIncomeCategory.map((c) => c.type),
   };
-
- 
 
   return {
     filtertedExpenseCategory,

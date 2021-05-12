@@ -15,7 +15,7 @@ import {
   SelectOption,
   DescInput,
   AddButton,
-  AvlBal
+  AvlBal,
 } from './Modal.elements';
 
 import { connect } from 'react-redux';
@@ -43,7 +43,7 @@ function Modal(props) {
 
   const { modalActive, closeModal, add, user, transactions } = props;
   const { incomeTotal, expenseTotal } = useTransactions(transactions);
-  const { transaction_amt,transaction_cat,transaction_type } = formData;
+  const { transaction_amt, transaction_cat, transaction_type } = formData;
 
   const balance = incomeTotal - expenseTotal;
 
@@ -54,16 +54,13 @@ function Modal(props) {
 
   const notify = () =>
     toast.warn('You do not have sufficient blanace to make this transaction!');
-    const notify1 = () =>
-    toast.error('Category cannot be left blank');
+  const notify1 = () => toast.error('Make sure to fill the required fields');
 
   const addTransaction = () => {
-    console.log({ balance, transaction_amt,transaction_cat,transaction_type });
-
-    if (Number(transaction_amt) > balance && transaction_type === "expense") {
+    if (Number(transaction_amt) > balance && transaction_type === 'expense') {
       notify();
     } else {
-      if(transaction_cat === "") {
+      if (transaction_cat === '' || !transaction_amt) {
         notify1();
       }
       const transaction = {

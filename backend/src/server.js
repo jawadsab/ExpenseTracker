@@ -25,6 +25,8 @@ const connectDB = async () => {
 }
 connectDB();
 
+
+
 const authRoutes = require("./routes/auth");
 const transactionRoutes = require("./routes/transactions");
 

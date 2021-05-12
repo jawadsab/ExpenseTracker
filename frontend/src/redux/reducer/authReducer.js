@@ -72,6 +72,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOGOUT:
       localStorage.removeItem('token');
+      localStorage.removeItem('theme');
       return {
         ...state,
         token: null,
@@ -79,12 +80,12 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         user: null,
       };
-    case "CLEAR_AUTH_ERROR":
-      console.log("YYESS")
+    case 'CLEAR_AUTH_ERROR':
+    
       return {
         ...state,
-        error:""
-      }
+        error: '',
+      };
     default:
       return state;
   }

@@ -5,17 +5,17 @@ import {
   ChartWrapper,
   Title,
 } from './Analytics.elements';
+import NoData from '../NoData/NoData';
+import { Information, SVG } from '../NoData/NoData.elements';
 
 import incomechartsvglight from '../../assets/income_chart_light.svg';
 import incomechartsvgdark from '../../assets/income_chart_dark.svg';
-
 import expensechartlight from '../../assets/expense_chart_light.svg';
 import expensechartdark from '../../assets/expense_chart_dark.svg';
 
-import { connect } from 'react-redux';
 import useTransactions from '../../useTransactions';
-import NoData from '../NoData/NoData';
-import { AddIcon, Information, SVG } from '../NoData/NoData.elements';
+
+import { connect } from 'react-redux';
 
 function Analytics(props) {
   const { transactions, app_theme } = props;

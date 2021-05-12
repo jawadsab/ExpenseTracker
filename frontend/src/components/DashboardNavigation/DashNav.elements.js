@@ -80,20 +80,20 @@ export const ToggleNavbar = styled.nav`
 export const HomeLogo = styled(Link)`
   width: 100%;
   display: block;
-  text-decoration:none;
-  color:inherit;
+  text-decoration: none;
+  color: inherit;
   @media only screen and (max-width: 780px) {
     padding: 1rem;
   }
 `;
 export const Logo = styled.p`
   font-family: 'Knewave', cursive;
-  font-weight:bold;
-  font-style:italic;
-  text-align:center;
-  font-size:1.2rem;
-  color:${({theme}) => theme.textSecondary};
-  letter-spacing:4px;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.textSecondary};
+  letter-spacing: 4px;
 `;
 
 export const NavMenuWrapper = styled.div`
@@ -130,7 +130,7 @@ export const NavItem = styled.li`
     right: 0;
     width: 0;
     height: 2px;
-    background-color: ${({theme}) => theme.textSecondary};
+    background-color: ${({ theme }) => theme.textSecondary};
     transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   }
   &:hover:before {
@@ -227,4 +227,3 @@ export const CheckBox = styled.input`
     }
   }
 `;
-
