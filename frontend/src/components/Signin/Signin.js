@@ -49,7 +49,7 @@ function Signin(props) {
         <SigninWrapper>
           <Header>
             <HeaderText>Welcome!</HeaderText>
-            <HeaderSubText>Some random text goes here</HeaderSubText>
+            {/* <HeaderSubText></HeaderSubText> */}
           </Header>
           {error && (
             <ErrorMessage>
