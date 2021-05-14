@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "src/server.js"
+    "local": "nodemon src/server.js",
+    "start":"node src/server.js"
   },
   "author": "JawadVajeeh",
   "license": "MIT",
@@ -24,5 +25,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node":"12.x"
   }
 }
